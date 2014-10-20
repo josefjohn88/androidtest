@@ -1,0 +1,42 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 20
+    buildToolsVersion "20.0.0"
+
+    defaultConfig {
+        applicationId "com.shoprunner.helloworld"
+        minSdkVersion 15
+        targetSdkVersion 20
+        versionCode 1
+        versionName "1.0"
+    }
+
+    signingConfigs {
+        releaseConfig {
+            storeFile file("testkeystore.jks")
+            storePassword ("abcd1234")
+            keyAlias "testkey"
+            keyPassword "abcd1234"
+        }
+    }
+
+    buildTypes {
+        release {
+            runProguard true
+            debuggable false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.releaseConfig
+        }
+
+        debug {
+            debuggable true
+            applicationIdSuffix '.debug'
+            versionNameSuffix '-DEBUG'
+        }
+    }
+}
+
+dependencies {
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+}
